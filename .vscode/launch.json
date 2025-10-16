@@ -1,0 +1,28 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "SFML Debug (GDB)",
+            "type": "cppdbg",
+            "request": "launch",
+            // 1. Set the program name to your executable
+            "program": "${workspaceFolder}/start", 
+            
+            // 2. Specify the task to run before debugging
+            "preLaunchTask": "SFML Build and Run", 
+            
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+}

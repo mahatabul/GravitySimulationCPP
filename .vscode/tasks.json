@@ -1,0 +1,39 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "SFML Build and Run",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                // 1. Compile the source file
+                "${workspaceFolder}/start.cpp",
+                
+                // 2. Specify the output executable name (e.g., 'start')
+                "-o",
+                "${workspaceFolder}/start",
+                
+                // 3. Include necessary SFML libraries
+                // (Commonly used modules are graphics, window, and system)
+                "-lsfml-graphics",
+                "-lsfml-window",
+                "-lsfml-system",
+                
+                // 4. Set C++ standard (SFML 3 requires C++17 or newer)
+                "-std=c++17",
+                
+                // 5. Enable warnings and debugging symbols
+                "-Wall",
+                "-g"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always"
+            },
+            "problemMatcher": "$gcc"
+        }
+    ]
+}
