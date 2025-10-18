@@ -5,6 +5,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <cmath>
 
+using namespace std;
 class Gravity_Source {
 
   sf::Vector2f pos;
@@ -70,28 +71,49 @@ public:
 };
 
 int main() {
-  sf::RenderWindow window(sf::VideoMode(1280, 720), "Gravity visualize");
+  sf::RenderWindow window(sf::VideoMode(1920, 1080), "Gravity Orbit Simulation");
   window.setFramerateLimit(60);
+  int screenX = 950,screenY = 540;
+  Gravity_Source src(screenX, screenY, 80000.0f);
 
-  Gravity_Source src(640,360,8000);
+  vector<Particle> particles;
 
-  Particle particle(540,500,6,0);
+  for (int i = 0; i < 20; i++) {
+    float angle = i * (360.0f / 10) * 3.14159f / 180.f; 
+    float radius = 100 + rand() % 300;             
+    float posX = screenX + cos(angle) * radius;
+    float posY = screenY + sin(angle) * radius;
+
+   
+    float speed = sqrt(src.getGravity() / radius);
+
+  
+    float velX = -sin(angle) * speed * (0.8f + (rand() % 40) / 100.f);
+    float velY = cos(angle) * speed * (0.8f + (rand() % 40) / 100.f);
+
+    particles.emplace_back(posX, posY, velX, velY);
+  }
+
 
   while (window.isOpen()) {
     sf::Event event;
     while (window.pollEvent(event)) {
       if (event.type == sf::Event::Closed)
         window.close();
-
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         window.close();
     }
 
-    window.clear();
-    particle.update(src);
+    
+
+    window.clear(sf::Color::Black);
     src.render(window);
-    particle.render(window);
-    // draw calls
+
+    for (auto &p : particles) {
+      p.update(src);
+      p.render(window);
+    }
+
     window.display();
   }
 
