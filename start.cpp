@@ -61,6 +61,20 @@ public:
   }
 };
 
+void createParticles(Gravity_Source &src, vector<Particle> &particles,int numParticles,int centerX,int centerY){
+ particles.clear();
+    for (int i = 0; i < numParticles; i++) {
+      float angle = i * (360.0f / numParticles) * 3.14159f / 180.f;
+      float radius = 100 + rand() % 300;
+      float posX = centerX + cos(angle) * radius;
+      float posY = centerY + sin(angle) * radius;
+      float speed = sqrt(src.getGravity() / radius);
+      float velX = -sin(angle) * speed;
+      float velY = cos(angle) * speed;
+      particles.emplace_back(posX, posY, velX, velY);
+    }
+
+}
 int main() {
   int modeWidth = 1920, modeHeight = 1080;
   sf::RenderWindow window(sf::VideoMode(modeWidth, modeHeight),
@@ -73,10 +87,14 @@ int main() {
 
   // Font
   sf::Font font;
-  if (!font.loadFromFile("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")) {
-    cerr << "Font not found!\n";
+  if (!font.loadFromFile("C:/Windows/Fonts/arial.ttf") &&                     // Windows
+    !font.loadFromFile("/Library/Fonts/Arial.ttf") &&                       // macOS
+    !font.loadFromFile("/System/Library/Fonts/Helvetica.ttc") &&            // macOS
+    !font.loadFromFile("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf") && // Linux (Debian/Ubuntu)
+    !font.loadFromFile("/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf")) { // Linux (Fedora/RedHat)
+    std::cerr << "No system font found!\n";
     return -1;
-  }
+}
 
   // --- UI Panel ---
   sf::RectangleShape panel(sf::Vector2f(300, 150));
@@ -118,21 +136,9 @@ int main() {
   Gravity_Source src(centerX, centerY, gravity);
   vector<Particle> particles;
 
-  auto createParticles = [&]() {
-    particles.clear();
-    for (int i = 0; i < numParticles; i++) {
-      float angle = i * (360.0f / numParticles) * 3.14159f / 180.f;
-      float radius = 100 + rand() % 300;
-      float posX = centerX + cos(angle) * radius;
-      float posY = centerY + sin(angle) * radius;
-      float speed = sqrt(src.getGravity() / radius);
-      float velX = -sin(angle) * speed;
-      float velY = cos(angle) * speed;
-      particles.emplace_back(posX, posY, velX, velY);
-    }
-  };
+  
 
-  createParticles();
+  createParticles(src,particles,numParticles,centerX,centerY);
 
   while (window.isOpen()) {
     sf::Event event;
@@ -180,7 +186,7 @@ int main() {
           gravity = stof(gravityText.getString().toAnsiString());
           numParticles = stoi(particleText.getString().toAnsiString());
           src = Gravity_Source(centerX, centerY, gravity);
-          createParticles();
+          createParticles(src,particles,numParticles,centerX,centerY);
         } catch (...) {
           cerr << "Invalid input!\n";
         }
