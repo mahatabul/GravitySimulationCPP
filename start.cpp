@@ -74,11 +74,13 @@ int main() {
   sf::RenderWindow window(sf::VideoMode(1920, 1080), "Gravity Orbit Simulation");
   window.setFramerateLimit(60);
   int screenX = 950,screenY = 540;
-  Gravity_Source src(screenX, screenY, 80000.0f);
+  float gravity = 80000.0f;
+  int numofParticles = 20;
+  Gravity_Source src(screenX, screenY,gravity );
 
   vector<Particle> particles;
 
-  for (int i = 0; i < 20; i++) {
+  for (int i = 0; i < numofParticles; i++) {
     float angle = i * (360.0f / 10) * 3.14159f / 180.f; 
     float radius = 100 + rand() % 300;             
     float posX = screenX + cos(angle) * radius;
