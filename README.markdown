@@ -2,6 +2,8 @@
 
 The Gravity Orbit Simulator is a C++ application that visualizes particles orbiting a central gravity source, simulating gravitational dynamics. Built using the SFML (Simple and Fast Multimedia Library), the simulator allows users to interactively adjust the gravity strength and the number of particles through a graphical user interface.
 
+![SCreenShot](ss.png)
+
 ## Features
 - **Particle Simulation**: Particles orbit a central gravity source based on Newtonian gravitational mechanics.
 - **Interactive UI**: A panel in the top-left corner allows users to modify:
