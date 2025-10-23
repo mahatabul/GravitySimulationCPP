@@ -29,7 +29,7 @@ To compile and run the simulator, you need:
    - Follow the instructions for your platform on the [SFML website](https://www.sfml-dev.org/tutorials/2.5/#getting-started).
    - Ensure SFML libraries are linked correctly in your build system.
 2. **Clone or Download the Code**:
-   - Copy the provided `main.cpp` file into your project directory.
+   - Copy the provided project.
 3. **Set Up Your Build System**:
    - **CMake Example**:
      ```cmake
@@ -43,7 +43,7 @@ To compile and run the simulator, you need:
    - Run `cmake .` and `make` to build the project.
    - **Manual Compilation** (example for GCC):
      ```bash
-     g++ -c main.cpp -I/path/to/sfml/include
+     g++ -c start.cpp -I/path/to/sfml/include
      g++ main.o -o GravitySimulator -L/path/to/sfml/lib -lsfml-graphics -lsfml-window -lsfml-system
      ```
 4. **Verify System Fonts**:
@@ -51,7 +51,7 @@ To compile and run the simulator, you need:
 
 ## Usage
 1. **Run the Program**:
-   - Execute the compiled binary (e.g., `./GravitySimulator` on Linux/macOS or `GravitySimulator.exe` on Windows).
+   - Execute the compiled binary (e.g., `./start` on Linux/macOS or `start.exe` on Windows).
    - The simulation starts with a default gravity strength of 80,000 and 20 particles orbiting a central red gravity source.
 2. **Interact with the UI**:
    - A panel appears in the top-left corner with fields for "Gravity Strength" and "Num Particles".
